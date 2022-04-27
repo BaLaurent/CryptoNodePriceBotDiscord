@@ -47,13 +47,15 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-
-    if message.content.startswith('$showFiat'):
-        global showFiat
-        showFiat = ~showFiat
-        if showFiat :
-            await message.channel.send("Showing price in Fiat")
-        else :
-            await message.channel.send("Showing price in AVAX")
+    if (":crown: Leaders" in [y.name for y in message.author.roles] or "admins" in [x.name.lower() for x in message.author.roles]):
+        if message.content.startswith('$showFiat'):
+            global showFiat
+            showFiat = ~showFiat
+            if showFiat :
+                await message.channel.send("Showing price in Fiat")
+            else :
+                await message.channel.send("Showing price in AVAX")
+    else :
+        await message.channel.send("You need to be a leader or admin to use this command")
 
 client.run('<YOUR DISCORD TOKEN>')
